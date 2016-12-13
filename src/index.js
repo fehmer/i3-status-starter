@@ -19,7 +19,7 @@ export default class Text extends EventEmitter {
         this.output.short_text = this.text;
 
         //emit updated event to i3Status
-        this.emit('updated', this.name, this.output);
+        this.emit('updated', this, this.output);
     }
 
 }

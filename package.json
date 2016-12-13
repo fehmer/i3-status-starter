@@ -1,6 +1,6 @@
 {
   "name": "i3-status-starter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Template for writing own modules for i3-status",
   "main": "lib/index.js",
   "url": "https://github.com/fehmer/i3-status-starter/issues",
