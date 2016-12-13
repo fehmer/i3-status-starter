@@ -1,0 +1,40 @@
+{
+  "name": "i3-status-starter",
+  "version": "0.1.0",
+  "description": "Template for writing own modules for i3-status",
+  "main": "lib/index.js",
+  "url": "https://github.com/fehmer/i3-status-starter/issues",
+  "scripts": {
+    "prepublish": "npm run compile",
+    "compile": "babel src/ -d lib -s",
+    "test": "npm run compile && node_modules/mocha/bin/mocha --compilers js:babel-register test --recursive --reporter gitlablist-mocha",
+    "watch": "(babel -w src/ -d lib -s &) && sleep 5 && node_modules/mocha/bin/mocha --compilers js:babel-register test --recursive  --reporter min --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fehmer/i3-status-starter.git"
+  },
+   "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
+  "keywords": [
+    "i3",
+    "i3wm",
+    "i3-status",
+    "i3block"
+  ],
+  "author": "Christian Fehmer",
+  "license": "MIT",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "chai": "^3.5.0",
+    "gitlablist-mocha": "^1.0.2",
+    "mocha": "^3.2.0"
+  }
+}
