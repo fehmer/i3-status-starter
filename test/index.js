@@ -40,10 +40,10 @@ describe('Module Starter', function() {
 function execute(block, verify) {
     block.name = block.constructor.name;
 
-    block.on('updated', function(name, output) {
-        clearInterval(block.interval);
+    block.on('updated', function(target, output) {
+        clearInterval(target.interval);
 
-        expect(name).to.equal(block.name);
+        expect(target.name).to.equal(block.name);
         verify(output);
     });
 
