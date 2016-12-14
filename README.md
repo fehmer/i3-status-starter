@@ -1,13 +1,22 @@
 # i3-status-starter
 
-[![npm version](https://badge.fury.io/js/i3-status-starter.svg)](https://badge.fury.io/js/i3-status-starter)
-[![Dependency Status](https://gemnasium.com/badges/github.com/fehmer/i3-status-starter.svg)](https://gemnasium.com/github.com/fehmer/i3-status-starter)
-[![Build Status](https://travis-ci.org/fehmer/i3-status-starter.svg?branch=master)](https://travis-ci.org/fehmer/i3-status-starter)
-[![Coverage Status](https://coveralls.io/repos/github/fehmer/i3-status-starter/badge.svg?branch=master)](https://coveralls.io/github/fehmer/i3-status-starter?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a52f41f904b24aac8807bb8ecb3dbec0)](https://www.codacy.com/app/fehmer/i3-status-starter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fehmer/i3-status-starter&amp;utm_campaign=Badge_Grade)
+[![npm version](https://img.shields.io/npm/v/i3-status-starter.svg?style=flat-square)](https://www.npmjs.com/package/i3-status-starter)
+[![Dependency Status](https://img.shields.io/gemnasium/fehmer/i3-status-starter.svg?style=flat-square)](https://gemnasium.com/github.com/fehmer/i3-status-starter)
+[![Build Status](https://img.shields.io/travis/fehmer/i3-status-starter.svg?style=flat-square)](https://travis-ci.org/fehmer/i3-status-starter)
+[![Codacy Badge](https://img.shields.io/codacy/grade/a52f41f904b24aac8807bb8ecb3dbec0.svg?style=flat-square)](https://www.codacy.com/app/fehmer/i3-status-starter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fehmer/i3-status-starter&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://img.shields.io/codacy/coverage/a52f41f904b24aac8807bb8ecb3dbec0.svg?style=flat-square)](https://www.codacy.com/app/fehmer/i3-status-starter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fehmer/i3-status-starter&amp;utm_campaign=Badge_Coverage)
 
 
 This is a template for writing modules for i3-status. It uses ES2015 modules and babel to compile to node 6. You can code your module as you want, this is just a suggestion. 
+
+## Scripts
+
+use npm run <target>
+
+- **compile** use babel to compile for non-es6 runtime
+- **test** to run the mocha tests
+- **watch** to watch for changes, compile and test on save.
+- **cover** to build test coverage report
 
 ## Documentation
 
@@ -96,11 +105,22 @@ There are some fields set by i3-status to your module instances.
 - **__click**: The click configuration from the config file. See i3-status documentation for more detail.
 - **__label**: The label of the block
 - **__index**: Position of the block inside the bar
+- **__logger**: [winston](https://www.npmjs.com/package/winston) logger to use for logging
 
 
 ### Custom click handler
 
 By default i3-status injects an action method into your module. You can implement a custom action method if you need more control over the mouse events on the block. The action method gets an action as parameter, which is documented in the [i3bar documentation](http://i3wm.org/docs/i3bar-protocol.html#_click_events).
+
+Example:
+
+``` js
+
+action(action) {
+    __logger.debug('button pressed on %s:', this.__name, action.button);
+}
+```
+
 
 ### Pause executions
 
@@ -124,4 +144,17 @@ update() {
         this.emit('updated', this, this.output);
     });
 }
+```
+
+
+### Logging
+
+i3-status uses [winston](https://www.npmjs.com/package/winston) for logging. The log file is written to ```~/.i3status.log```. Start i3-status with ```-v``` to enable verbose logging.
+
+``` js
+
+update() {
+    __logger.debug('update called on ', this.__name);
+}
+
 ```

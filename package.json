@@ -1,6 +1,6 @@
 {
   "name": "i3-status-starter",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Template for writing own modules for i3-status",
   "main": "lib/index.js",
   "url": "https://github.com/fehmer/i3-status-starter/issues",
@@ -8,7 +8,7 @@
     "prepublish": "npm run compile",
     "compile": "babel src/ -d lib -s",
     "test": "npm run compile && node_modules/mocha/bin/mocha --compilers js:babel-register test --recursive --reporter gitlablist-mocha",
-    "watch": "(babel -w src/ -d lib -s &) && sleep 5 && node_modules/mocha/bin/mocha --compilers js:babel-register test --recursive  --reporter min --watch",
+    "watch": "npm run compile && (babel -w src/ -d lib -s &) && node_modules/mocha/bin/mocha --compilers js:babel-register test --recursive  --reporter min --watch",
     "cover": "npm run compile && istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --colors --reporter dot test/ --recursive"
   },
   "repository": {
@@ -33,7 +33,7 @@
     "babel-cli": "^6.18.0",
     "babel-preset-latest": "^6.16.0",
     "chai": "^3.5.0",
-    "coveralls": "^2.11.15",
+    "codacy-coverage": "^2.0.0",
     "gitlablist-mocha": "^1.0.2",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^3.2.0"

@@ -7,5 +7,5 @@ install:
 script:
   - npm run cover
 
-# Send coverage data to Coveralls
-after_script: "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
+# Send coverage data to codacy
+after_script: "cat coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage"
