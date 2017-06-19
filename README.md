@@ -9,6 +9,24 @@
 
 This is a template for writing modules for i3-status. It uses ES2015 modules and babel to compile to node 6. You can code your module as you want, this is just a suggestion. 
 
+## Table of content
+
+<!-- MarkdownTOC -->
+
+- [Scripts](#scripts)
+- [Documentation](#documentation)
+  - [Constructor](#constructor)
+  - [Update Method](#update-method)
+  - [Interval based execution](#interval-based-execution)
+  - [Additional Fields](#additional-fields)
+  - [Custom click handler](#custom-click-handler)
+  - [Pause executions](#pause-executions)
+  - [Logging](#logging)
+- [Testing](#testing)
+
+<!-- /MarkdownTOC -->
+
+
 ## Scripts
 
 use npm run <target>
@@ -158,3 +176,8 @@ update() {
 }
 
 ```
+
+
+## Testing
+
+Please have a look at the [Tests](test/index.js) for a test example.

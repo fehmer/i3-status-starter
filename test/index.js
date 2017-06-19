@@ -3,20 +3,23 @@
 import { expect } from 'chai';
 import Starter from './../lib/index';
 
-describe('Module Starter', function() {
 
-    describe('#constructor', function() {
+describe('Module Starter', () => {
+
+    describe('#constructor', () => {
         it('should construct and store custom options', () => {
             var block = new Starter({
-                text: 'Peter'
+                text: 'Peter',
+                secretValue: 'nonEncryptedSecret'
             });
 
             expect(block.text).to.equal('Peter');
+            expect(block.secretValue).to.equal('nonEncryptedSecret');
         });
     });
 
 
-    describe('update', function() {
+    describe('update', () => {
         it('should update the output and fire updated', (done) => {
             //construct block
             var block = new Starter({
@@ -40,7 +43,7 @@ describe('Module Starter', function() {
 function execute(block, verify) {
     block.name = block.constructor.name;
 
-    block.on('updated', function(target, output) {
+    block.on('updated', (target, output) =>  {
         clearInterval(target.interval);
 
         expect(target.name).to.equal(block.name);

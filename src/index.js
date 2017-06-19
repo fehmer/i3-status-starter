@@ -10,6 +10,7 @@ export default class Text extends EventEmitter {
 
         //custom config
         this.text = options.text || '';
+        this.secretValue = options.secretValue;
 
     }
 
