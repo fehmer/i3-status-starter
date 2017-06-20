@@ -22,6 +22,7 @@ This is a template for writing modules for i3-status. It uses ES2015 modules and
   - [Custom click handler](#custom-click-handler)
   - [Pause executions](#pause-executions)
   - [Logging](#logging)
+  - [Reporter](#reporter)
 - [Testing](#testing)
 
 <!-- /MarkdownTOC -->
@@ -135,7 +136,7 @@ Example:
 ``` js
 
 action(action) {
-    __logger.debug('button pressed on %s:', this.__name, action.button);
+    this.__logger.debug('button pressed on %s:', this.__name, action.button);
 }
 ```
 
@@ -172,10 +173,33 @@ i3-status uses [winston](https://www.npmjs.com/package/winston) for logging. The
 ``` js
 
 update() {
-    __logger.debug('update called on ', this.__name);
+    this.__logger.debug('update called on ', this.__name);
 }
 
 ```
+
+
+### Reporter
+
+If you want to display more information which cannot fit in the bar itself you can use the reporter. 
+
+First you should check if there is a reporter defined and if it supports your output format
+
+``` js
+    if (this.__reporter && this.__reporter.supports('html')) {
+        this.__reporter.display(output, action);
+    }
+```
+
+Then you can call the display method. The method takes two arguments, the output and the action from i3-status. If you don't have an action you can create one.
+
+The output object for the [html-reporter](https://github.com/fehmer/i3-status-reporter-html) contains
+
+1. a ```header``` of the report window
+2. a ```content``` in your content type, e.g. html
+3. an optional ```userStyle``` with custom css
+
+The action object contains a ```x``` and ```y``` value indicating where on the screen the mouse was pressed and where (roughly) the windows should appear.
 
 
 ## Testing

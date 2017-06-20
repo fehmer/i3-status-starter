@@ -23,4 +23,15 @@ export default class Text extends EventEmitter {
         this.emit('updated', this, this.output);
     }
 
+    action(action) {
+        if (this.__reporter && this.__reporter.supports('html')) {
+            var output = {
+                header: 'Starter sample',
+                content: `<h1>Hello World!</h1><p>Secret value is ${this.secretValue}`,
+                userStyle: 'h1 { color: red }'
+            };
+            this.__reporter.display(output, action);
+        }
+    }
+
 }
