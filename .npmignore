@@ -1,10 +1,6 @@
 node_modules
 test
-src
-.gitlab-ci.yml
+.github
 .gitignore
 .npmignore
-.esformatter.json
-.travis.yml
 coverage
-*.map

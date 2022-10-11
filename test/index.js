@@ -1,7 +1,7 @@
 'use strict';
 
 import { expect } from 'chai';
-import Starter from './../lib/index';
+import Starter from './../src/index.js';
 
 
 describe('Module Starter', () => {

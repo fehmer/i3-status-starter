@@ -1,17 +1,13 @@
 # i3-status-starter
 
-[![npm version](https://img.shields.io/npm/v/i3-status-starter.svg?style=flat-square)](https://www.npmjs.com/package/i3-status-starter)
-[![Dependency Status](https://img.shields.io/gemnasium/fehmer/i3-status-starter.svg?style=flat-square)](https://gemnasium.com/github.com/fehmer/i3-status-starter)
-[![Build Status](https://img.shields.io/travis/fehmer/i3-status-starter.svg?style=flat-square)](https://travis-ci.org/fehmer/i3-status-starter)
-[![Codacy Badge](https://img.shields.io/codacy/grade/a52f41f904b24aac8807bb8ecb3dbec0.svg?style=flat-square)](https://www.codacy.com/app/fehmer/i3-status-starter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fehmer/i3-status-starter&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://img.shields.io/codacy/coverage/a52f41f904b24aac8807bb8ecb3dbec0.svg?style=flat-square)](https://www.codacy.com/app/fehmer/i3-status-starter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fehmer/i3-status-starter&amp;utm_campaign=Badge_Coverage)
+[![npm version](https://img.shields.io/npm/v/i3-status-starter.svg?style=flat-square)](https://www.npmjs.com/package/i3-status-starter) 
+[![Node.js CI](https://github.com/fehmer/i3-status-starter/actions/workflows/node.js.yml/badge.svg)](https://github.com/fehmer/i3-status-starter/actions/workflows/node.js.yml)
 
-
-This is a template for writing modules for i3-status. It uses ES2015 modules and babel to compile to node 6. You can code your module as you want, this is just a suggestion. 
+This is a template for writing modules for i3-status. It uses ES modules and requires node>=14. You can code your module as you want, this is just a suggestion. 
 
 ## Table of content
 
-<!-- MarkdownTOC -->
+<!-- MarkdownTOC autolink="true" -->
 
 - [Scripts](#scripts)
 - [Documentation](#documentation)
@@ -32,10 +28,9 @@ This is a template for writing modules for i3-status. It uses ES2015 modules and
 
 use npm run <target>
 
-- **compile** use babel to compile for non-es6 runtime
 - **test** to run the mocha tests
 - **watch** to watch for changes, compile and test on save.
-- **cover** to build test coverage report
+- **coverage** to build test coverage report
 
 ## Documentation
 
