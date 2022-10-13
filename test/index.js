@@ -20,19 +20,16 @@ describe('Module Starter', () => {
 
 
     describe('update', () => {
-        it('should update the output and fire updated', (done) => {
+        it('should update the output and fire updated', async() => {
             //construct block
             var block = new Starter({
                 text: 'Peter'
             });
 
-            execute(block, (output) => {
-                //check output line
-                expect(output.short_text).to.equal('Peter');
-                expect(output.full_text).to.equal('Peter');
-
-                done();
-            });
+            const output = await execute(block);
+            //check output line
+            expect(output.short_text).to.equal('Peter');
+            expect(output.full_text).to.equal('Peter');
         });
     });
 
@@ -40,21 +37,12 @@ describe('Module Starter', () => {
 
 
 //copied from i3-status
-function execute(block, verify) {
-    block.name = block.constructor.name;
-
-    block.on('updated', (target, output) =>  {
-        clearInterval(target.interval);
-
-        expect(target.name).to.equal(block.name);
-        verify(output);
-    });
-
-    //simulate set interval, will never fire
-    block._interval = 10000;
-    block.interval = setInterval(() => {
+async function execute(block) {
+    return await new Promise(resolve => {
+        block.on('updated', async(target, output) => {
+            clearInterval(target.interval);
+            resolve(output);
+        });
         block.update();
-    }, block._interval);
-
-    block.update();
+    });
 }
