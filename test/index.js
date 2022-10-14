@@ -20,13 +20,15 @@ describe('Module Starter', () => {
 
 
     describe('update', () => {
-        it('should update the output and fire updated', async() => {
+        it('should update the output', async() => {
             //construct block
             var block = new Starter({
                 text: 'Peter'
             });
 
-            const output = await execute(block);
+            await block.refresh();
+            const output = block.output;
+
             //check output line
             expect(output.short_text).to.equal('Peter');
             expect(output.full_text).to.equal('Peter');
@@ -34,15 +36,3 @@ describe('Module Starter', () => {
     });
 
 })
-
-
-//copied from i3-status
-async function execute(block) {
-    return await new Promise(resolve => {
-        block.on('updated', async(target, output) => {
-            clearInterval(target.interval);
-            resolve(output);
-        });
-        block.update();
-    });
-}

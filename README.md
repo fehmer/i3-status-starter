@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/i3-status-starter.svg?style=flat-square)](https://www.npmjs.com/package/i3-status-starter) 
 [![Node.js CI](https://github.com/fehmer/i3-status-starter/actions/workflows/node.js.yml/badge.svg)](https://github.com/fehmer/i3-status-starter/actions/workflows/node.js.yml)
 
-This is a template for writing modules for i3-status. It uses ES modules and requires node>=14. You can code your module as you want, this is just a suggestion. 
+This is a template for writing modules for i3-status. It uses ES modules and requires node>=14. You can code your module as you want, this is just a suggestion. Requires i3-status 0.3.0 or higher.
 
 ## Table of content
 
@@ -11,14 +11,14 @@ This is a template for writing modules for i3-status. It uses ES modules and req
 
 - [Scripts](#scripts)
 - [Documentation](#documentation)
-  - [Constructor](#constructor)
-  - [Update Method](#update-method)
-  - [Interval based execution](#interval-based-execution)
-  - [Additional Fields](#additional-fields)
-  - [Custom click handler](#custom-click-handler)
-  - [Pause executions](#pause-executions)
-  - [Logging](#logging)
-  - [Reporter](#reporter)
+    - [Constructor](#constructor)
+    - [Refresh Method](#refresh-method)
+    - [Interval based execution](#interval-based-execution)
+    - [Additional Fields](#additional-fields)
+    - [Custom click handler](#custom-click-handler)
+    - [Pause executions](#pause-executions)
+    - [Logging](#logging)
+    - [Reporter](#reporter)
 - [Testing](#testing)
 
 <!-- /MarkdownTOC -->
@@ -37,12 +37,11 @@ use npm run <target>
 A module for i3-status contains a constructor and an update method.
 
 ``` js
-import { EventEmitter } from 'events';
 
-export default class Starter extends EventEmitter {
+export default class Starter {
     constructor(options, output) {}
 
-    update() {}
+    async refresh() {}
 }
 ```
 
@@ -51,7 +50,6 @@ export default class Starter extends EventEmitter {
 
 ``` js
  constructor(options, output) {
-        super();
         options = options || {};
         this.output = output || {};
 
@@ -84,21 +82,19 @@ The output is defined by the [i3-bar documentation](http://i3wm.org/docs/i3bar-p
 The *name* and *color* is set by the i3-status, but you may overwrite the *color*. To mark a block as urgent set ```"urgent":true```.
 
 
-### Update Method
+### Refresh Method
 
 ``` js
- update() {
+ async refresh() {
         //update output
         this.output.full_text = 'My value: ' + this.myValue;
         this.output.short_text = this.myValue;
-
-        //emit updated event to i3Status
-        this.emit('updated', this, this.output);
     }
 ```
 
-The update method is called by i3-status based on the configured interval. The update method should update the ```this.output``` object and emit an *updated* event with the blocks name and the output object. 
-If your code uses callbacks just emit the *updated* event when your callback is done. You can [pause executions](#pause-executions) until your update method is fully completed.
+The refresh method is called by i3-status based on the configured interval. The update method should update the ```this.output``` object.
+
+You can [pause executions](#pause-executions) until your update method is fully completed.
 
 
 ### Interval based execution
@@ -141,22 +137,10 @@ action(action) {
 If you have a module with long-running code you maybe want to prevent further invocations of the update method until your code execution is ready.
 
 ``` js
-update() {
-    //pause further executions
-    this.emit('pause', this);
-
-    //ivoke some call
-    invoke( (text) => {
-        //update output
-        this.output.full_text = result.length > 0 ? result[0] : '';
-        this.output.short_text = result.length > 1 ? result[1] : '';
-
-        //resume further executions
-        this.emit('resume', this);
-
-        //emit updated event to i3Status
-        this.emit('updated', this, this.output);
-    });
+    pauseDuringRefresh() {
+        //pause interval during execution to prevent command to be called while already running
+        return true;
+    }
 }
 ```
 
