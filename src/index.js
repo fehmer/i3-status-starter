@@ -1,26 +1,20 @@
 'use strict';
 
-import { EventEmitter } from 'events';
-
-export default class Text extends EventEmitter {
+export default class Text {
     constructor(options, output) {
-        super();
         options = options || {};
         this.output = output || {};
 
         //custom config
         this.text = options.text || '';
         this.secretValue = options.secretValue;
-
     }
 
-    update() {
+    async refresh() {
         //update output
         this.output.full_text = this.text;
         this.output.short_text = this.text;
 
-        //emit updated event to i3Status
-        this.emit('updated', this, this.output);
     }
 
     action(action) {
